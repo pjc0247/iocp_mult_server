@@ -116,7 +116,7 @@ int main(int argc,char **argv){
     auto handler = 
         new my_server();
     auto server =
-        new server::instance(handler);
+        new server(handler);
       
     server->open(
         "0.0.0.0", 9916);
