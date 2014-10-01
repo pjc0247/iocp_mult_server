@@ -82,7 +82,7 @@ public:
     
     auto result = orm::from("account")
       ->where("id", pkt->id)
-      ->where("id", pkt->pw)
+      ->where("pw", pkt->pw)
       ->find_one_async();
       
     if(result != nullptr){
