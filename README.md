@@ -99,14 +99,14 @@ public:
     }
     
     void send_login_resp(
-        session::conn *client,
+        intf::sendable *to,
         const std::string &id,
         int result){
         
         s2c_login_resp resp;
         strncpy(resp.id, id.c_str(), MAX_ID);
         resp.result = result;
-        client->send(&resp, sizeof(s2c_login_resp));
+        to->send(&resp, sizeof(s2c_login_resp));
     }
 };
 ```
