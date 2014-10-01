@@ -72,10 +72,12 @@ public:
   
   /* packet handlers */
   void on_keepalive(
-    session::conn *client){
+    session::conn *client,
+    c2s_keepalive *pkt){
     
   }
   async void on_login_req(
+    session::conn *client,
     c2s_login_req *pkt){
     
     auto result = orm::from("account")
@@ -85,22 +87,26 @@ public:
       
     if(result != nullptr){
       send_login_resp(
+        client,
         result->get("nickname"),
         true);
     }
-    else
-      send_login_resp("", false);
+    else{
+      send_login_resp(
+        client,
+        "", false);
+    }
   }
   
   void send_login_resp(
-    session::conn *
+    session::conn *client,
     const std::string &id,
     int result){
     
     s2c_login_resp resp;
     strncpy(resp.id, id.c_str(), MAX_ID);
     resp.result = result;
-    conn->send(&resp, sizeof(s2c_login_resp));
+    client->send(&resp, sizeof(s2c_login_resp));
   }
 };
 ```
