@@ -7,7 +7,9 @@ asdfsadfs
 #include <choco/choco.h>
 
 using namespace choco;
+```
 
+```C++
 enum pkt_id{
   id_keepalive,
   
@@ -42,7 +44,9 @@ struct s2c_login_resp : packet::header{
     id = id_s2c_login_resp;
   }
 };
+```
 
+```C++
 class my_server : public intf::handler{
 public:
   my_server(){
@@ -99,7 +103,9 @@ public:
     conn->send(&resp, sizeof(s2c_login_resp));
   }
 };
+```
 
+```C++
 int main(int argc,char **argv){
   auto handler = 
     new my_server();
