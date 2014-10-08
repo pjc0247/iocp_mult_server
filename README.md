@@ -16,34 +16,23 @@ enum pkt_id{
     id_c2s_login_req,
     id_s2c_login_resp
 };
+const int MAX_user_id = 32;
+const int MAX_user_pw = 32;
+const int MAX_user_nickname = 16;
 
-/* KEEPALIVE */
-struct c2s_keepalive : packet::header{
-    int timestamp;
-  
-    c2s_keepalive(){
-        id = id_keepalive;
-    }
-};
+PACKET(keepalive)
+	INT(timestamp);
+END
 
-/* LOGIN */
-struct c2s_login_req : packet::header{
-    char id[MAX_ID+1];
-    char pw[MAX_PW+1];
-    
-    c2s_login_req(){
-        id = id_c2s_login_req;
-    }
-};
-struct s2c_login_resp : packet::header{
-    int result;
-    
-    char nickname[MAX_NICKNAME+1];
-    
-    s2c_login_resp(){
-        id = id_s2c_login_resp;
-    }
-};
+BEGIN(c2s_login_request)
+    STRING(user_id);
+    STRING(user_pw);
+END
+
+PACKET(s2c_login_response)
+    INT(result);
+    STRING(user_nickname);
+END
 ```
 
 ```C++
