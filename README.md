@@ -24,7 +24,7 @@ PACKET(keepalive)
 	INT(timestamp);
 END
 
-BEGIN(c2s_login_request)
+PACKET(c2s_login_request)
     STRING(user_id);
     STRING(user_pw);
 END
